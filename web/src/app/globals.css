@@ -33,7 +33,7 @@ body {
 }
 
 .animate-scroll-news {
-  animation: scroll-news 60s linear infinite;
+  animation: scroll-news 120s linear infinite;
 }
 
 @keyframes live-flip {

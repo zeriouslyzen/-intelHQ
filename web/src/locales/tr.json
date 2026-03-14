@@ -1,0 +1,24 @@
+{
+  "a11y": {
+  "changeLanguage": "Dili değiştir"
+},
+"header": {
+    "globalOps": "Küresel Ops",
+    "worldSignals": "Dünya Sinyalleri",
+    "liveFeed": "Canlı Yayın"
+  },
+  "lang": {
+    "en": "İngilizce",
+    "tr": "Türkçe",
+    "es": "İspanyolca",
+    "ja": "Japonca"
+  },
+  "tutorial": {
+    "title": "Hızlı başlangıç",
+    "body1": "Bu panel size küresel piyasalar, haberler ve olayların tek bir canlı görüntüsünü sunar. Durumsal farkındalık oluşturmak için kullanın: şu an ne oluyor, nerede ve hangi sırayla.",
+    "body2": "Bugün anlık görüntüyü; Harita coğrafyayı ve hareketi; Etkinlikler ve Savaş Zamanı zaman çizelgesini gösterir. Birlikte bağlam ve geçmiş sunarlar.",
+    "body3": "Bu bağlamı desenleri görmek ve sonrasında ne olabileceğini tahmin etmek için kullanın. Sihirli değnek yok — sadece tahtayı daha net görmeniz için bir araç.",
+    "gotIt": "Anladım",
+    "maybeLater": "Sonra"
+  }
+}

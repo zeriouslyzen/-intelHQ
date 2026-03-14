@@ -1,0 +1,24 @@
+{
+  "a11y": {
+  "changeLanguage": "Change language"
+},
+"header": {
+    "globalOps": "Global Ops",
+    "worldSignals": "World Signals",
+    "liveFeed": "Live Feed"
+  },
+  "lang": {
+    "en": "English",
+    "tr": "Turkish",
+    "es": "Spanish",
+    "ja": "Japanese"
+  },
+  "tutorial": {
+    "title": "Quick start",
+    "body1": "This dashboard gives you a single live picture of global markets, news, and events. Use it to build situational awareness: what is happening right now, where, and in what order.",
+    "body2": "Today shows the snapshot; the Map shows geography and movement; Events and Wartime show the timeline. Together they give you context and history.",
+    "body3": "Use that context to spot patterns and anticipate what might come next. No crystal ball — just a clearer view of the board so you can think ahead.",
+    "gotIt": "Got it",
+    "maybeLater": "Maybe later"
+  }
+}

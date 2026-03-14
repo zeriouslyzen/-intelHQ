@@ -4,6 +4,7 @@ import { useState } from "react";
 import WorldMap, { type MapLayersState } from "@/components/WorldMap";
 import RegionDashboard from "@/components/RegionDashboard";
 import EventsLogOsint from "@/components/EventsLogOsint";
+import ActivityByRegion from "@/components/ActivityByRegion";
 import type { RegionCode } from "@/lib/regions";
 import type { CommodityQuote, Quote } from "@/lib/markets";
 import type { NewsItem } from "@/lib/news";
@@ -52,6 +53,7 @@ export default function MapViewClient({
   return (
     <div className="grid flex-1 gap-3 md:grid-cols-[minmax(0,2.1fr)_minmax(0,1.2fr)]">
       <section className="flex min-h-0 flex-col rounded-xl border border-neutral-200 bg-white p-4">
+        <ActivityByRegion news={news} conflict={conflict} className="mb-3" />
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
           <span>Radar · overlays</span>
           <div className="flex items-center gap-2">

@@ -1,0 +1,24 @@
+{
+  "a11y": {
+  "changeLanguage": "Cambiar idioma"
+},
+"header": {
+    "globalOps": "Ops Global",
+    "worldSignals": "Señales Mundiales",
+    "liveFeed": "En vivo"
+  },
+  "lang": {
+    "en": "Inglés",
+    "tr": "Turco",
+    "es": "Español",
+    "ja": "Japonés"
+  },
+  "tutorial": {
+    "title": "Inicio rápido",
+    "body1": "Este panel te da una sola imagen en vivo de mercados globales, noticias y eventos. Úsalo para tener conciencia situacional: qué pasa ahora, dónde y en qué orden.",
+    "body2": "Hoy muestra la instantánea; el Mapa muestra la geografía y el movimiento; Eventos y Tiempo de guerra muestran la línea de tiempo. Juntos dan contexto e historia.",
+    "body3": "Usa ese contexto para detectar patrones y anticipar qué puede venir. No es una bola de cristal: solo una vista más clara del tablero para que puedas pensar con anticipación.",
+    "gotIt": "Entendido",
+    "maybeLater": "Más tarde"
+  }
+}

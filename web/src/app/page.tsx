@@ -1,6 +1,7 @@
-import BreakingHeadlinesStrip from "@/components/BreakingHeadlinesStrip";
+import BreakingHeadlinesStripLive from "@/components/BreakingHeadlinesStripLive";
 import LiveStreamFlipper from "@/components/LiveStreamFlipper";
 import RegionDashboard from "@/components/RegionDashboard";
+import TodaySummaryLine from "@/components/TodaySummaryLine";
 import { fetchConflictUpdates } from "@/lib/conflict";
 import { getDefaultFeedsConfig, getFeedsConfig } from "@/lib/configDb";
 import {
@@ -46,10 +47,19 @@ export default async function Home() {
   }));
 
   const mainIndex = indices[0];
+  const riskLabel =
+    mainIndex && mainIndex.changePercent != null
+      ? mainIndex.changePercent > 0.5
+        ? "risk-on"
+        : mainIndex.changePercent < -0.5
+          ? "risk-off"
+          : "mixed"
+      : null;
 
   return (
     <div className="flex min-h-0 min-w-0 flex-col gap-4">
-      <BreakingHeadlinesStrip items={headlineItems} className="min-w-0 shrink-0" />
+      <TodaySummaryLine conflict={conflict} riskLabel={riskLabel} />
+      <BreakingHeadlinesStripLive initialItems={headlineItems} className="min-w-0 shrink-0" />
       <LiveStreamFlipper
         className="min-w-0 shrink-0"
         defaultChannelId={undefined}
