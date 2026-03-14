@@ -47,7 +47,7 @@ export default function LayoutClient({
       <div className="flex min-h-screen flex-col bg-gradient-to-b from-white via-neutral-50 to-sky-50/40 text-neutral-900">
         <HeaderWithLocale />
         <NavTickers />
-        <main className="mx-auto flex w-full max-w-6xl flex-1 gap-4 px-3 py-4 sm:px-4">
+        <main className="mx-auto flex w-full max-w-6xl flex-1 gap-4 px-3 py-4 pb-16 sm:px-4 sm:pb-4">
           <div className="hidden w-56 shrink-0 flex-col gap-2 sm:flex">
             <nav className="space-y-1 rounded-xl border border-neutral-200 bg-white/90 p-2 text-sm shadow-sm">
               <div className="px-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
@@ -129,7 +129,7 @@ export default function LayoutClient({
             {children}
           </section>
         </main>
-        <footer className="border-t border-neutral-200 bg-white/95 px-4 py-2 sm:hidden">
+        <footer className="fixed bottom-0 left-0 right-0 z-30 border-t border-neutral-200 bg-white/95 px-4 py-2 sm:hidden">
           <nav className="mx-auto flex max-w-md items-center justify-between text-[11px] font-medium text-neutral-500">
             <Link href="/" className="flex flex-1 flex-col items-center gap-0.5">
               <span className="h-1 w-6 rounded-full bg-amber-400" />
