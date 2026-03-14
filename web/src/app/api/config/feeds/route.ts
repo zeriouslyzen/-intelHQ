@@ -1,4 +1,4 @@
-import { getFeedsConfig, setFeedsConfig } from "@/lib/configDb";
+import { getDefaultFeedsConfig, getFeedsConfig, setFeedsConfig } from "@/lib/configDb";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -8,10 +8,7 @@ export async function GET() {
     const config = await getFeedsConfig();
     return NextResponse.json(config);
   } catch {
-    return NextResponse.json(
-      { enabledFeedIds: [], videoEmbedUrl: undefined },
-      { status: 200 }
-    );
+    return NextResponse.json(getDefaultFeedsConfig(), { status: 200 });
   }
 }
 
@@ -30,6 +27,6 @@ export async function PATCH(request: Request) {
     await setFeedsConfig(config);
     return NextResponse.json(config);
   } catch {
-    return NextResponse.json({ error: "Failed to save config" }, { status: 500 });
+    return NextResponse.json(getDefaultFeedsConfig(), { status: 200 });
   }
 }

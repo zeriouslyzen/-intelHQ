@@ -2,6 +2,8 @@ import { db } from "./db";
 import type { FeedsConfig } from "./feedsConfig";
 import { getDefaultFeedsConfig } from "./feedsConfig";
 
+export { getDefaultFeedsConfig } from "./feedsConfig";
+
 const CONFIG_NAME = "feeds";
 
 export async function getFeedsConfig(): Promise<FeedsConfig> {
@@ -22,19 +24,23 @@ export async function getFeedsConfig(): Promise<FeedsConfig> {
 }
 
 export async function setFeedsConfig(config: FeedsConfig): Promise<void> {
-  const existing = await db.layoutConfig.findFirst({
-    where: { name: CONFIG_NAME },
-    orderBy: { createdAt: "desc" },
-  });
-  const payload = JSON.stringify(config);
-  if (existing) {
-    await db.layoutConfig.update({
-      where: { id: existing.id },
-      data: { config: payload },
+  try {
+    const existing = await db.layoutConfig.findFirst({
+      where: { name: CONFIG_NAME },
+      orderBy: { createdAt: "desc" },
     });
-  } else {
-    await db.layoutConfig.create({
-      data: { name: CONFIG_NAME, config: payload },
-    });
+    const payload = JSON.stringify(config);
+    if (existing) {
+      await db.layoutConfig.update({
+        where: { id: existing.id },
+        data: { config: payload },
+      });
+    } else {
+      await db.layoutConfig.create({
+        data: { name: CONFIG_NAME, config: payload },
+      });
+    }
+  } catch {
+    // DB unavailable (e.g. Vercel without DATABASE_URL); no-op so UI keeps working
   }
 }

@@ -5,10 +5,16 @@ import {
 } from "@/lib/markets";
 
 export default async function NotesPage() {
-  const [fx, commodities] = await Promise.all([
-    fetchAllRegionalFx(),
-    fetchCommodities(),
-  ]);
+  let fx: Awaited<ReturnType<typeof fetchAllRegionalFx>> = [];
+  let commodities: Awaited<ReturnType<typeof fetchCommodities>> = [];
+  try {
+    [fx, commodities] = await Promise.all([
+      fetchAllRegionalFx(),
+      fetchCommodities(),
+    ]);
+  } catch {
+    // keep empty arrays
+  }
 
   return (
     <div className="flex h-full flex-col gap-4">

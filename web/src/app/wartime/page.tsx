@@ -1,12 +1,21 @@
 import { fetchConflictUpdates } from "@/lib/conflict";
-import { getFeedsConfig } from "@/lib/configDb";
+import { getDefaultFeedsConfig, getFeedsConfig } from "@/lib/configDb";
 import WartimeView from "@/components/WartimeView";
 
 export const dynamic = "force-dynamic";
 
 export default async function WartimePage() {
-  const config = await getFeedsConfig();
-  const conflict = await fetchConflictUpdates(config);
+  let conflict: Awaited<ReturnType<typeof fetchConflictUpdates>> = [];
+  try {
+    const config = await getFeedsConfig();
+    conflict = await fetchConflictUpdates(config);
+  } catch {
+    try {
+      conflict = await fetchConflictUpdates(getDefaultFeedsConfig());
+    } catch {
+      conflict = [];
+    }
+  }
 
   return (
     <div className="flex h-full flex-col gap-4">

@@ -1,14 +1,28 @@
 import { fetchConflictUpdates } from "@/lib/conflict";
-import { getFeedsConfig } from "@/lib/configDb";
+import { getDefaultFeedsConfig, getFeedsConfig } from "@/lib/configDb";
 import { fetchGlobalNews } from "@/lib/news";
 import EventsView from "@/components/EventsView";
 
 export default async function EventsPage() {
-  const config = await getFeedsConfig();
-  const [news, conflict] = await Promise.all([
-    fetchGlobalNews(),
-    fetchConflictUpdates(config),
-  ]);
+  let news: Awaited<ReturnType<typeof fetchGlobalNews>> = [];
+  let conflict: Awaited<ReturnType<typeof fetchConflictUpdates>> = [];
+  try {
+    const config = await getFeedsConfig();
+    [news, conflict] = await Promise.all([
+      fetchGlobalNews(),
+      fetchConflictUpdates(config),
+    ]);
+  } catch {
+    try {
+      [news, conflict] = await Promise.all([
+        fetchGlobalNews(),
+        fetchConflictUpdates(getDefaultFeedsConfig()),
+      ]);
+    } catch {
+      news = [];
+      conflict = [];
+    }
+  }
 
   return (
     <div className="flex h-full flex-col gap-4">

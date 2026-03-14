@@ -6,11 +6,18 @@ import {
 } from "@/lib/markets";
 
 export default async function MarketsPage() {
-  const [indices, fx, commodities] = await Promise.all([
-    fetchIndexQuotes(),
-    fetchAllRegionalFx(),
-    fetchCommodities(),
-  ]);
+  let indices: Awaited<ReturnType<typeof fetchIndexQuotes>> = [];
+  let fx: Awaited<ReturnType<typeof fetchAllRegionalFx>> = [];
+  let commodities: Awaited<ReturnType<typeof fetchCommodities>> = [];
+  try {
+    [indices, fx, commodities] = await Promise.all([
+      fetchIndexQuotes(),
+      fetchAllRegionalFx(),
+      fetchCommodities(),
+    ]);
+  } catch {
+    // keep empty arrays
+  }
 
   const rows = [
     ...indices.map((q) => ({ ...q, type: "index" as const })),

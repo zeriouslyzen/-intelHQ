@@ -5,10 +5,16 @@ import AlertsRadioView from "@/components/AlertsRadioView";
 export const dynamic = "force-dynamic";
 
 export default async function AlertsPage() {
-  const [alerts, radio] = await Promise.all([
-    fetchAllAlerts(),
-    fetchRadioStations(),
-  ]);
+  let alerts: Awaited<ReturnType<typeof fetchAllAlerts>> = [];
+  let radio: Awaited<ReturnType<typeof fetchRadioStations>> = [];
+  try {
+    [alerts, radio] = await Promise.all([
+      fetchAllAlerts(),
+      fetchRadioStations(),
+    ]);
+  } catch {
+    // keep empty arrays
+  }
 
   return (
     <div className="flex h-full flex-col gap-4">

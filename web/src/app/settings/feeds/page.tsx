@@ -1,12 +1,17 @@
 import FeedsConfigForm from "@/components/FeedsConfigForm";
+import { getDefaultFeedsConfig, getFeedsConfig } from "@/lib/configDb";
 import { CONFLICT_FEED_REGISTRY } from "@/lib/feedsConfig";
-import { getFeedsConfig } from "@/lib/configDb";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export default async function FeedsSettingsPage() {
-  const config = await getFeedsConfig();
+  let config = getDefaultFeedsConfig();
+  try {
+    config = await getFeedsConfig();
+  } catch {
+    // use default
+  }
   return (
     <div className="flex h-full flex-col gap-4">
       <header className="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3">
