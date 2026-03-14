@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 
 interface Message {
   id: string;
@@ -9,6 +10,7 @@ interface Message {
 }
 
 export default function AiAssistPanel() {
+  const { t } = useLocale();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -28,11 +30,10 @@ export default function AiAssistPanel() {
     };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
-    // Placeholder: echo and suggest. Replace with API call later.
     const reply: Message = {
       id: `a-${Date.now()}`,
       role: "assistant",
-      content: `You asked: "${text}". Connect an AI API to this panel to get real answers about the data, strategy, and building analysis.`,
+      content: t("ai.replyPlaceholder", { text }),
     };
     setMessages((prev) => [...prev, reply]);
   };
@@ -44,7 +45,7 @@ export default function AiAssistPanel() {
           type="button"
           onClick={() => setOpen(true)}
           className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-amber-300 bg-amber-50 shadow-lg hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-400"
-          aria-label="Open AI assist"
+          aria-label={t("a11y.openAiAssist")}
         >
           <span className="text-sm font-semibold text-amber-800">AI</span>
         </button>
@@ -61,19 +62,19 @@ export default function AiAssistPanel() {
           >
             <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
               <span className="text-sm font-semibold text-neutral-900">
-                AI assist
+                {t("ai.title")}
               </span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 className="rounded p-1 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700"
-                aria-label="Close"
+                aria-label={t("a11y.close")}
               >
                 <span className="text-lg leading-none">×</span>
               </button>
             </div>
             <p className="border-b border-neutral-100 px-4 py-2 text-[11px] text-neutral-500">
-              Ask about the data, build strategy, or explore the dashboard.
+              {t("ai.subtitle")}
             </p>
             <div
               ref={listRef}
@@ -81,8 +82,7 @@ export default function AiAssistPanel() {
             >
               {messages.length === 0 && (
                 <p className="text-sm text-neutral-500">
-                  Send a message to start. Connect an AI backend for real
-                  analysis and strategy.
+                  {t("ai.emptyHint")}
                 </p>
               )}
               {messages.map((m) => (
@@ -110,14 +110,14 @@ export default function AiAssistPanel() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about data or strategy..."
+                  placeholder={t("ai.placeholder")}
                   className="flex-1 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400"
                 />
                 <button
                   type="submit"
                   className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-800 hover:bg-amber-100"
                 >
-                  Send
+                  {t("ai.send")}
                 </button>
               </div>
             </form>
@@ -125,7 +125,7 @@ export default function AiAssistPanel() {
           <button
             type="button"
             className="absolute inset-0 -z-10"
-            aria-label="Close overlay"
+            aria-label={t("a11y.close")}
             onClick={() => setOpen(false)}
           />
         </div>

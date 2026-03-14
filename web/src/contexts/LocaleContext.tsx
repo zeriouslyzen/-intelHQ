@@ -42,7 +42,7 @@ function lookup(obj: unknown, path: string): string | undefined {
 interface LocaleContextValue {
   locale: Locale;
   setLocale: (next: Locale) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
@@ -64,12 +64,16 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const t = useCallback(
-    (key: string): string => {
+    (key: string, params?: Record<string, string | number>): string => {
       if (!mounted) {
-        return lookup(dictionaries.en, key) ?? key;
+        let s = lookup(dictionaries.en, key) ?? key;
+        if (params) for (const [k, v] of Object.entries(params)) s = s.replace(new RegExp(`\\{${k}\\}`, "g"), String(v));
+        return s;
       }
       const dict = dictionaries[locale];
-      return lookup(dict, key) ?? lookup(dictionaries.en, key) ?? key;
+      let s = lookup(dict, key) ?? lookup(dictionaries.en, key) ?? key;
+      if (params) for (const [k, v] of Object.entries(params)) s = s.replace(new RegExp(`\\{${k}\\}`, "g"), String(v));
+      return s;
     },
     [locale, mounted]
   );

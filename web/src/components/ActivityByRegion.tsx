@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/contexts/LocaleContext";
 import { REGIONS } from "@/lib/regions";
 import type { RegionCode } from "@/lib/regions";
 import { filterNewsByRegion } from "@/lib/news";
@@ -18,6 +19,7 @@ export default function ActivityByRegion({
   conflict,
   className = "",
 }: ActivityByRegionProps) {
+  const { t } = useLocale();
   const rows = REGIONS.map((r) => {
     const newsCount = filterNewsByRegion(news, r.code).length;
     const conflictCount = filterConflictByRegion(conflict, r.code).length;
@@ -28,7 +30,7 @@ export default function ActivityByRegion({
   if (rows.length === 0) {
     return (
       <div className={`rounded-lg border border-neutral-200 bg-neutral-50/80 px-3 py-2 text-[11px] text-neutral-500 ${className}`}>
-        Activity: no events by region in this snapshot.
+        {t("map.noActivityByRegion")}
       </div>
     );
   }
@@ -36,7 +38,7 @@ export default function ActivityByRegion({
   return (
     <div className={`rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm ${className}`}>
       <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-500 mb-1.5">
-        Activity by region
+        {t("map.activityByRegion")}
       </div>
       <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-neutral-700">
         {rows.map(({ code, name, total, newsCount, conflictCount }) => (
@@ -44,7 +46,7 @@ export default function ActivityByRegion({
             <span className="font-medium">{name}</span>
             <span className="text-neutral-500"> {total}</span>
             <span className="text-neutral-400">
-              {" "}({newsCount} news, {conflictCount} conflict)
+              {" "}({t("map.eventsCount", { news: newsCount, conflict: conflictCount })})
             </span>
           </span>
         ))}

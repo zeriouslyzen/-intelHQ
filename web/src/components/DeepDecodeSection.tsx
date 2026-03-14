@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 import type { DeepDecodeResult } from "@/lib/decodeDeep";
 
 interface DeepDecodeSectionProps {
@@ -34,6 +35,7 @@ function Section({
 }
 
 export default function DeepDecodeSection({ result, className = "" }: DeepDecodeSectionProps) {
+  const { t } = useLocale();
   const hasAny =
     result.manipulation.length > 0 ||
     result.numbers.length > 0 ||
@@ -44,11 +46,11 @@ export default function DeepDecodeSection({ result, className = "" }: DeepDecode
   return (
     <div className={`mt-3 rounded-lg border border-neutral-200 bg-neutral-50/80 p-2 ${className}`}>
       <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-500 mb-1.5">
-        Deeper decode
+        {t("decode.deepDecodeTitle")}
       </div>
       <div className="space-y-0">
         {result.manipulation.length > 0 && (
-          <Section title="Manipulation / propaganda cues" defaultOpen>
+          <Section title={t("decode.manipulationTitle")} defaultOpen>
             <ul className="list-inside list-disc space-y-0.5">
               {result.manipulation.map((m, i) => (
                 <li key={i}>{m}</li>
@@ -57,7 +59,7 @@ export default function DeepDecodeSection({ result, className = "" }: DeepDecode
           </Section>
         )}
         {result.numbers.length > 0 && (
-          <Section title="Significant numbers">
+          <Section title={t("decode.numbersTitle")}>
             <ul className="space-y-1">
               {result.numbers.map((n, i) => (
                 <li key={i}>
@@ -69,19 +71,19 @@ export default function DeepDecodeSection({ result, className = "" }: DeepDecode
           </Section>
         )}
         {result.timing.length > 0 && (
-          <Section title="Date / timing significance">
+          <Section title={t("decode.timingTitle")}>
             <ul className="space-y-1">
-              {result.timing.map((t, i) => (
+              {result.timing.map((tim, i) => (
                 <li key={i}>
-                  <span className="font-medium">{t.date}</span>
-                  <span className="ml-1 text-neutral-600">— {t.significance}</span>
+                  <span className="font-medium">{tim.date}</span>
+                  <span className="ml-1 text-neutral-600">— {tim.significance}</span>
                 </li>
               ))}
             </ul>
           </Section>
         )}
         {result.symbols.length > 0 && (
-          <Section title="Symbols / imagery">
+          <Section title={t("decode.symbolsTitle")}>
             <ul className="space-y-1.5">
               {result.symbols.map((s, i) => (
                 <li key={i}>
@@ -94,7 +96,7 @@ export default function DeepDecodeSection({ result, className = "" }: DeepDecode
           </Section>
         )}
         {result.societies.length > 0 && (
-          <Section title="Society / group connections">
+          <Section title={t("decode.societiesTitle")}>
             <ul className="space-y-1">
               {result.societies.map((s, i) => (
                 <li key={i}>
@@ -109,7 +111,7 @@ export default function DeepDecodeSection({ result, className = "" }: DeepDecode
         )}
         {!hasAny && (
           <p className="py-2 text-[11px] text-neutral-500">
-            No manipulation cues, significant numbers, date symbolism, or society keywords detected in this text. Try Live headlines or add more patterns over time.
+            {t("decode.noPatterns")}
           </p>
         )}
       </div>

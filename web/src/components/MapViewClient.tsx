@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 import WorldMap, { type MapLayersState } from "@/components/WorldMap";
 import RegionDashboard from "@/components/RegionDashboard";
 import EventsLogOsint from "@/components/EventsLogOsint";
@@ -22,12 +23,7 @@ interface MapViewClientProps {
   vesselPositions?: VesselPosition[];
 }
 
-const LAYER_LABELS: { key: keyof MapLayersState; label: string }[] = [
-  { key: "news", label: "News" },
-  { key: "logs", label: "Logs" },
-  { key: "cargo", label: "Cargo" },
-  { key: "air", label: "Air" },
-];
+const LAYER_KEYS: (keyof MapLayersState)[] = ["news", "logs", "cargo", "air"];
 
 export default function MapViewClient({
   indices,
@@ -38,6 +34,7 @@ export default function MapViewClient({
   flightStates = [],
   vesselPositions = [],
 }: MapViewClientProps) {
+  const { t } = useLocale();
   const [selectedRegion, setSelectedRegion] = useState<RegionCode | null>(null);
   const [layers, setLayers] = useState<MapLayersState>({
     news: true,
@@ -55,12 +52,12 @@ export default function MapViewClient({
       <section className="flex min-h-0 flex-col rounded-xl border border-neutral-200 bg-white p-4">
         <ActivityByRegion news={news} conflict={conflict} className="mb-3" />
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500">
-          <span>Radar · overlays</span>
+          <span>{t("map.radarOverlays")}</span>
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">
-              Layers
+              {t("map.layers")}
             </span>
-            {LAYER_LABELS.map(({ key, label }) => (
+            {LAYER_KEYS.map((key) => (
               <label
                 key={key}
                 className="flex cursor-pointer items-center gap-1.5 rounded border border-neutral-200 bg-neutral-50 px-2 py-1 hover:bg-neutral-100"
@@ -72,7 +69,7 @@ export default function MapViewClient({
                   className="h-3 w-3 rounded border-neutral-300"
                 />
                 <span className="text-[11px] font-medium text-neutral-700">
-                  {label}
+                  {t(`map.${key}`)}
                 </span>
               </label>
             ))}
@@ -98,7 +95,7 @@ export default function MapViewClient({
         />
         <div className="rounded-xl border border-neutral-200 bg-white p-4 text-xs text-neutral-500">
           <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
-            Global snapshot
+            {t("map.globalSnapshot")}
           </div>
           <div className="mt-2 space-y-1.5">
             {indices.slice(0, 3).map((q) => (

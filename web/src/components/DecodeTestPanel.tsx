@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 import HeadlineDecodeCard from "@/components/HeadlineDecodeCard";
 
 const SAMPLE_HEADLINES = [
@@ -46,6 +47,7 @@ interface ConflictItem {
 }
 
 export default function DecodeTestPanel() {
+  const { t } = useLocale();
   const [mode, setMode] = useState<"sample" | "live">("sample");
   const [liveItems, setLiveItems] = useState<ConflictItem[]>([]);
   const [liveLoading, setLiveLoading] = useState(false);
@@ -79,7 +81,7 @@ export default function DecodeTestPanel() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-[11px] font-medium text-neutral-500">
-          Headlines:
+          {t("decode.headlines")}
         </span>
         <button
           type="button"
@@ -90,7 +92,7 @@ export default function DecodeTestPanel() {
               : "border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50"
           }`}
         >
-          Sample
+          {t("decode.sample")}
         </button>
         <button
           type="button"
@@ -102,12 +104,12 @@ export default function DecodeTestPanel() {
               : "border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50 disabled:opacity-50"
           }`}
         >
-          {liveLoading ? "Loading…" : "Live"}
+          {liveLoading ? t("decode.loading") : t("decode.live")}
         </button>
       </div>
       {liveError && (
         <p className="text-xs text-red-600">
-          Live fetch failed: {liveError}. Using sample or try again.
+          {t("decode.liveFetchFailed", { err: liveError })}
         </p>
       )}
       {showItems && (
@@ -124,7 +126,7 @@ export default function DecodeTestPanel() {
         </div>
       )}
       {mode === "live" && !liveLoading && liveItems.length === 0 && !liveError && (
-        <p className="text-xs text-neutral-500">No live headlines returned.</p>
+        <p className="text-xs text-neutral-500">{t("decode.noLiveHeadlines")}</p>
       )}
     </div>
   );

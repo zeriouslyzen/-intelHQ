@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useLocale } from "@/contexts/LocaleContext";
 import DecodeBadges from "@/components/DecodeBadges";
 import DeepDecodeSection from "@/components/DeepDecodeSection";
 import { deepDecode } from "@/lib/decodeDeep";
@@ -19,6 +20,7 @@ export default function HeadlineDecodeCard({
   link,
   publishedAt,
 }: HeadlineDecodeCardProps) {
+  const { t } = useLocale();
   const [showWhy, setShowWhy] = useState(false);
   const [showEli5, setShowEli5] = useState(false);
   const [showDeep, setShowDeep] = useState(false);
@@ -40,7 +42,7 @@ export default function HeadlineDecodeCard({
             onClick={() => setShowWhy((v) => !v)}
             className="rounded border border-amber-200 bg-amber-50 px-2 py-1 text-[11px] font-medium text-amber-800 hover:bg-amber-100"
           >
-            Why it matters
+            {t("decode.whyItMatters")}
           </button>
         )}
         {eli5Line && (
@@ -49,7 +51,7 @@ export default function HeadlineDecodeCard({
             onClick={() => setShowEli5((v) => !v)}
             className="rounded border border-sky-200 bg-sky-50 px-2 py-1 text-[11px] font-medium text-sky-800 hover:bg-sky-100"
           >
-            Explain like I&apos;m 5
+            {t("decode.eli5")}
           </button>
         )}
         <button
@@ -57,7 +59,7 @@ export default function HeadlineDecodeCard({
           onClick={() => setShowDeep((v) => !v)}
           className="rounded border border-violet-200 bg-violet-50 px-2 py-1 text-[11px] font-medium text-violet-800 hover:bg-violet-100"
         >
-          Deeper decode
+          {t("decode.deeperDecode")}
         </button>
       </div>
       {showWhy && whyLine && (
@@ -79,7 +81,7 @@ export default function HeadlineDecodeCard({
           rel="noreferrer"
           className="mt-2 inline-block text-[11px] text-amber-700 hover:underline"
         >
-          Read article
+          {t("decode.readArticle")}
         </a>
       )}
     </div>

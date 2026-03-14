@@ -1,3 +1,4 @@
+import MapPageHeader from "@/components/MapPageHeader";
 import MapViewClientWrapper from "@/components/MapViewClientWrapper";
 import { fetchConflictUpdates } from "@/lib/conflict";
 import { getDefaultFeedsConfig, getFeedsConfig } from "@/lib/configDb";
@@ -57,19 +58,7 @@ export default async function MapPage() {
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <header className="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
-            Map
-          </p>
-          <h1 className="mt-1 text-base font-semibold text-neutral-900">
-            Radar · news · cargo · air
-          </h1>
-        </div>
-        <div className="hidden text-[11px] text-neutral-500 sm:block">
-          Real metrics: OpenSky flights; cargo lanes + vessels when VESSEL_API_URL set.
-        </div>
-      </header>
+      <MapPageHeader />
       <MapViewClientWrapper
         indices={indices}
         fx={fx}
