@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+@keyframes scroll-markets {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-news {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-markets {
+  animation: scroll-markets 45s linear infinite;
+}
+
+.animate-scroll-news {
+  animation: scroll-news 60s linear infinite;
+}
+
+@keyframes live-flip {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-live-flip {
+  animation: live-flip 0.32s ease-out;
+}
+
+/* Radar map overlay */
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes radar-pulse {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.radar-sweep-line {
+  animation: radar-sweep 8s linear infinite;
+}
+
+.radar-pulse-ring {
+  animation: radar-pulse 2s ease-in-out infinite;
+}
+
+/* Map pin icons (used by Leaflet divIcon) */
+.map-pin {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+}
+
+.map-pin-news {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.map-pin-logs {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.map-pin-cargo {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.map-pin-air {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+}
+

@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and env
+*.log
+.env
+.env.*
+!.env.example
+
+# Next.js (web)
+web/node_modules
+web/.next
+web/out
+web/build
+web/.vercel
+
+# SQLite and Prisma
+web/*.db
+web/*.db-journal
+web/prisma/*.db
+web/prisma/*.db-journal
+web/src/generated
+
+# IDE and misc
+*.tsbuildinfo
+.idea
+.vscode/settings.json
