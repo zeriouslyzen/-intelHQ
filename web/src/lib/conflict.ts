@@ -88,10 +88,11 @@ async function fetchOneConflictFeed(
 export async function fetchConflictUpdates(
   config?: FeedsConfig | null
 ): Promise<ConflictItem[]> {
+  const defaultConfig = getDefaultFeedsConfig();
   const enabled =
     (config?.enabledFeedIds?.length ?? 0) > 0
-      ? config.enabledFeedIds
-      : getDefaultFeedsConfig().enabledFeedIds;
+      ? (config?.enabledFeedIds ?? defaultConfig.enabledFeedIds)
+      : defaultConfig.enabledFeedIds;
   const toFetch = CONFLICT_FEED_REGISTRY.filter((f) =>
     enabled.includes(f.id)
   );
