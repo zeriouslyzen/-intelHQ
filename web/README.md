@@ -25,12 +25,13 @@ Next.js 16 app for the IntelHQ / World Signals dashboard. See the [root README](
 
 - **`DATABASE_URL`** — Required for Prisma (PostgreSQL). Apply migrations: `npx prisma migrate dev`.
 
-**Auth (NextAuth.js)** — Required for sign-in, sessions, and chat persistence:
+**Auth (NextAuth.js)** — Optional. Sign-in, header session UI, and chat load only when **both** `NEXTAUTH_SECRET` and `DATABASE_URL` are set. Otherwise NextAuth is not mounted (no `/api/auth/session` polling, no console `CLIENT_FETCH_ERROR`).
 
-- `NEXTAUTH_URL` — e.g. `http://localhost:3000` in development
-- `NEXTAUTH_SECRET` — strong random string for session signing
+- `NEXTAUTH_URL` — Must match the site origin in the browser (include `www` if that is canonical).
+- `NEXTAUTH_SECRET` — Strong random string for session signing.
+- To force auth off even when secrets exist: `NEXT_PUBLIC_AUTH_DISABLED=true`.
 
-Without these, public/market pages may still run, but `/signin`, `/signup`, and chat routes will not function correctly.
+Without a full auth setup, `/signin` and `/signup` redirect home; `/chat` shows a short “not enabled” message.
 
 ## Data flow
 

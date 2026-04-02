@@ -1,8 +1,7 @@
 import { fetchFxSnapshot } from "@/lib/markets";
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 120;
 
 export async function GET() {
   const data = await fetchFxSnapshot();

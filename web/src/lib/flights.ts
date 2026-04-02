@@ -64,6 +64,7 @@ export async function fetchFlightStates(
   try {
     const res = await fetch(url, {
       next: { revalidate: 15 },
+      signal: AbortSignal.timeout(8_000),
       headers: REQUEST_HEADERS,
     });
     if (!res.ok) return [];

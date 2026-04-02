@@ -8,8 +8,18 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   margin: 0;
+}
+
+/* Contain scroll chaining on iOS / mobile when the main column scrolls */
+.app-scroll-surface {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 /* Premium dark palette + market accents (used with Tailwind dark: where helpful) */
@@ -150,5 +160,30 @@ body {
 
 .map-pin-air {
   background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-markets,
+  .animate-scroll-news,
+  .animate-scroll-crypto {
+    animation: none !important;
+  }
+
+  .animate-live-flip {
+    animation: none !important;
+  }
+
+  .radar-sweep-line,
+  .radar-pulse-ring {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-scroll-markets,
+  .animate-scroll-news,
+  .animate-scroll-crypto {
+    will-change: transform;
+  }
 }
 

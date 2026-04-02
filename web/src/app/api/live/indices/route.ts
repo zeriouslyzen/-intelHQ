@@ -1,8 +1,8 @@
 import { fetchIndexQuotes } from "@/lib/markets";
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+/** CDN / Data Cache; matches Yahoo poll cadence in lib. */
+export const revalidate = 30;
 
 export async function GET() {
   const data = await fetchIndexQuotes();

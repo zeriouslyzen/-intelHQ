@@ -35,7 +35,7 @@ export default function BreakingHeadlinesStripLive({
     let cancelled = false;
     const fetchLatest = async () => {
       try {
-        const res = await fetch("/api/live/conflict", { cache: "no-store" });
+        const res = await fetch("/api/live/conflict");
         if (cancelled) return;
         if (!res.ok) return;
         const data = await res.json();

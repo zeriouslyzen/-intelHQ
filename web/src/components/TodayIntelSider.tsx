@@ -1,10 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useId, useState } from "react";
 import { useLocale } from "@/contexts/LocaleContext";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import EventsLogOsint from "@/components/EventsLogOsint";
-import PredictionBriefPanel from "@/components/PredictionBriefPanel";
+
+const PredictionBriefPanel = dynamic(() => import("@/components/PredictionBriefPanel"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="min-h-[140px] animate-pulse rounded-xl border border-violet-200/30 bg-zinc-900/40 dark:border-violet-500/15"
+      aria-hidden
+    />
+  ),
+});
 import type { ConflictItem } from "@/lib/conflict";
 import type { NewsItem } from "@/lib/news";
 

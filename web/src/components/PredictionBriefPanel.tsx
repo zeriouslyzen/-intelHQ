@@ -125,7 +125,7 @@ export default function PredictionBriefPanel({
     let cancelled = false;
     const load = async () => {
       try {
-        const res = await fetch("/api/live/polymarket", { cache: "no-store" });
+        const res = await fetch("/api/live/polymarket");
         if (cancelled) return;
         if (res.ok) {
           const raw = await res.json();

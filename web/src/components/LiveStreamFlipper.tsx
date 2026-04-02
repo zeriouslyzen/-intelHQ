@@ -56,12 +56,11 @@ export default function LiveStreamFlipper({
   const runBatch = useCallback(async () => {
     const channelIds = YOUTUBE_CHANNELS.map((c) => c.embedValue);
     try {
-      const res = await fetch("/api/live/youtube-latest/batch", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ channelIds }),
-        cache: "no-store",
-      });
+        const res = await fetch("/api/live/youtube-latest/batch", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ channelIds }),
+        });
       if (!res.ok) {
         setBatchHadError(true);
         return;

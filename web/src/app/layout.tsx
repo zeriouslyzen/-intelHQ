@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Orbitron, Source_Serif_4 } from "next/font/google";
 import LayoutClient from "@/components/LayoutClient";
 import SessionProvider from "@/components/SessionProvider";
 import ThemeProvider from "@/components/ThemeProvider";
+import { isNextAuthEnabled } from "@/lib/authEnabled.server";
 import { getSiteOrigin } from "@/lib/siteUrl";
 import "./globals.css";
 
@@ -29,22 +30,33 @@ const sourceSerif4 = Source_Serif_4({
 
 const siteOrigin = getSiteOrigin();
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#030304" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
-  title: "/katanx",
+  title: "World Signals",
   description:
     "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
   openGraph: {
-    title: "/katanx",
+    title: "World Signals",
     description:
       "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
     url: siteOrigin,
-    siteName: "/katanx",
+    siteName: "World Signals",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "/katanx",
+    title: "World Signals",
     description:
       "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
   },
@@ -60,15 +72,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const authEnabled = isNextAuthEnabled();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${orbitron.variable} ${ibmPlexMono.variable} ${sourceSerif4.variable} min-h-screen bg-neutral-50 text-neutral-900 antialiased dark:bg-[#030304] dark:text-zinc-100`}
       >
         <ThemeProvider>
-          <SessionProvider>
-            <LayoutClient>{children}</LayoutClient>
-          </SessionProvider>
+          {authEnabled ? (
+            <SessionProvider>
+              <LayoutClient authEnabled>{children}</LayoutClient>
+            </SessionProvider>
+          ) : (
+            <LayoutClient authEnabled={false}>{children}</LayoutClient>
+          )}
         </ThemeProvider>
       </body>
     </html>

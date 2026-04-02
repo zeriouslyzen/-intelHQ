@@ -63,7 +63,7 @@ async function fetchOneConflictFeed(
   try {
     const res = await fetch(url, {
       next: { revalidate: 120 },
-      cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
       headers: FEED_HEADERS,
     });
     if (!res.ok) return [];

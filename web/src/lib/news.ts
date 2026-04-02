@@ -63,7 +63,8 @@ async function fetchOneFeed(
 ): Promise<NewsItem[]> {
   try {
     const res = await fetch(url, {
-      cache: "no-store",
+      next: { revalidate: 120 },
+      signal: AbortSignal.timeout(12_000),
       headers: FEED_HEADERS,
     });
     if (!res.ok) return [];

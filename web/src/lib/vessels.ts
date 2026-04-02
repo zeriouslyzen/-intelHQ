@@ -60,6 +60,7 @@ export async function fetchVesselPositions(
   try {
     const res = await fetch(itemsUrl, {
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(8_000),
       headers: HEADERS,
     });
     if (!res.ok) return [];

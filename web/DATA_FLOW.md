@@ -37,6 +37,8 @@ Client components that refresh on an interval read **`shouldPoll`** from **`Live
 | `GET /api/live/alerts` | `fetchAllAlerts()` | JSON array | Optional client use |
 | `GET /api/live/radio` | `fetchRadioStations()` | JSON array | Optional client use |
 
+**Caching**: Each `GET /api/live/*` route sets `export const revalidate` (15s–15m by endpoint) so Vercel/Data Cache can serve warm responses; client components use default `fetch` caching (not `no-store`) so the browser can reuse responses between poll ticks.
+
 **Polymarket**: Each market in `markets` may include `updatedAt` and `endDate` from Gamma. **`parsePolymarketApiJson()`** in `lib/polymarket.ts` accepts either the new object shape or a legacy JSON array.
 
 ## Pages (server data)

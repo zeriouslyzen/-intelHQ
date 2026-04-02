@@ -44,6 +44,7 @@ export default function BottomNavBar() {
               <li key={item.href} className="shrink-0 sm:min-w-0 sm:flex-1">
                 <Link
                   href={item.href}
+                  prefetch={false}
                   className={
                     "flex min-w-[4.25rem] flex-col items-center justify-center gap-0.5 rounded-lg px-2 py-1.5 text-center transition-colors sm:min-w-0 " +
                     (on

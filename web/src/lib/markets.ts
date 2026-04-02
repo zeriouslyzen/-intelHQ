@@ -73,6 +73,7 @@ export async function fetchIndexQuotes(): Promise<Quote[]> {
 
     const res = await fetch(url, {
       next: { revalidate: 30 },
+      signal: AbortSignal.timeout(10_000),
       headers: BROWSER_HEADERS,
     });
     if (!res.ok) return FALLBACK_INDICES;
@@ -101,6 +102,7 @@ export async function fetchFxSnapshot(): Promise<Quote[]> {
       "https://api.frankfurter.app/latest?from=USD&to=EUR,JPY,GBP,CHF";
     const res = await fetch(url, {
       next: { revalidate: 120 },
+      signal: AbortSignal.timeout(10_000),
       headers: BROWSER_HEADERS,
     });
     if (!res.ok) return FALLBACK_FX;
@@ -127,6 +129,7 @@ export async function fetchCommodities(): Promise<CommodityQuote[]> {
       encodeURIComponent(COMMODITY_SYMBOLS.join(","));
     const res = await fetch(url, {
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(10_000),
       headers: BROWSER_HEADERS,
     });
     if (!res.ok) return FALLBACK_COMMODITIES;
@@ -162,6 +165,7 @@ export async function fetchAllRegionalFx(): Promise<Quote[]> {
     const url = `https://api.frankfurter.app/latest?from=USD&to=${to}`;
     const res = await fetch(url, {
       next: { revalidate: 120 },
+      signal: AbortSignal.timeout(10_000),
       headers: BROWSER_HEADERS,
     });
     if (!res.ok) return REGIONAL_FX_FALLBACK;

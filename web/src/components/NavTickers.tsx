@@ -48,16 +48,16 @@ export default function NavTickers() {
     let cancelled = false;
     const load = async () => {
       setHasAttemptedLoad(true);
-      const cacheOpts = { cache: "no-store" as RequestCache };
       try {
+        /* Default cache: honors Route Handler revalidate + CDN; polling still refreshes on interval. */
         const [indicesRes, fxRes, commoditiesRes, cryptoRes, polyRes, newsRes] =
           await Promise.all([
-            fetch("/api/live/indices", cacheOpts),
-            fetch("/api/live/fx", cacheOpts),
-            fetch("/api/live/commodities", cacheOpts),
-            fetch("/api/live/crypto", cacheOpts),
-            fetch("/api/live/polymarket", cacheOpts),
-            fetch("/api/live/news", cacheOpts),
+            fetch("/api/live/indices"),
+            fetch("/api/live/fx"),
+            fetch("/api/live/commodities"),
+            fetch("/api/live/crypto"),
+            fetch("/api/live/polymarket"),
+            fetch("/api/live/news"),
           ]);
         if (cancelled) return;
         const indices = indicesRes.ok ? ((await indicesRes.json()) as Quote[]) : [];

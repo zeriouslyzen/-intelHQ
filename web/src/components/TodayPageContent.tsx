@@ -1,8 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useLocale } from "@/contexts/LocaleContext";
 import BreakingHeadlinesStripLive from "@/components/BreakingHeadlinesStripLive";
-import LiveStreamFlipper from "@/components/LiveStreamFlipper";
+
+const LiveStreamFlipper = dynamic(() => import("@/components/LiveStreamFlipper"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="aspect-video w-full animate-pulse rounded-xl bg-neutral-800/80 dark:bg-zinc-900/90"
+      aria-hidden
+    />
+  ),
+});
 import RegionDashboard from "@/components/RegionDashboard";
 import TodayEditorialBrief from "@/components/TodayEditorialBrief";
 import TodayIntelSider from "@/components/TodayIntelSider";
