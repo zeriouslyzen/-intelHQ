@@ -6,6 +6,7 @@ import { compare } from "bcryptjs";
 import { db } from "@/lib/db";
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(db),
   session: { strategy: "database", maxAge: 30 * 24 * 60 * 60 },
   pages: {

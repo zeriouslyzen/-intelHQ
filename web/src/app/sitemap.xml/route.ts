@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-
-const baseUrl = "https://researchdefence.com";
+import { getSiteOrigin } from "@/lib/siteUrl";
 
 const staticPaths = [
   "",
@@ -13,6 +12,7 @@ const staticPaths = [
 ];
 
 function buildSitemapXml(): string {
+  const baseUrl = getSiteOrigin();
   const urls = staticPaths
     .map((path) => {
       const loc = path ? `${baseUrl}${path}` : baseUrl;

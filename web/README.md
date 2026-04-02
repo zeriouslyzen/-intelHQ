@@ -64,3 +64,9 @@ npm run start
 ```
 
 For Vercel or similar, point the project root to `web`. Set **`DATABASE_URL`** (PostgreSQL), **`NEXTAUTH_URL`**, and **`NEXTAUTH_SECRET`**. Run migrations against the production database as part of deploy or CI.
+
+### Site won’t load, auth errors, or “security” / cookie issues
+
+- Set **`NEXTAUTH_URL`** to the **same origin users see** (including `www` if that is your canonical host). A mismatch between apex and `www` breaks session cookies and CSRF checks.
+- Production **`NEXTAUTH_SECRET`** must be set (see `.env.example`).
+- Vercel previews use **`VERCEL_URL`** automatically for metadata when `NEXTAUTH_URL` is unset; for custom domains, always set **`NEXTAUTH_URL`** explicitly.

@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Orbitron, Source_Serif_4 } from "next/font/google";
 import LayoutClient from "@/components/LayoutClient";
 import SessionProvider from "@/components/SessionProvider";
 import ThemeProvider from "@/components/ThemeProvider";
+import { getSiteOrigin } from "@/lib/siteUrl";
 import "./globals.css";
 
 const orbitron = Orbitron({
@@ -26,10 +27,10 @@ const sourceSerif4 = Source_Serif_4({
   display: "swap",
 });
 
-const baseUrl = "https://researchdefence.com";
+const siteOrigin = getSiteOrigin();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(siteOrigin),
   title: "/katanx",
   description:
     "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     title: "/katanx",
     description:
       "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
-    url: baseUrl,
+    url: siteOrigin,
     siteName: "/katanx",
     type: "website",
   },
