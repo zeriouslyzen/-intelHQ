@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 *,
 *::before,
 *::after {
@@ -8,6 +10,26 @@
 
 body {
   margin: 0;
+}
+
+/* Premium dark palette + market accents (used with Tailwind dark: where helpful) */
+.dark {
+  color-scheme: dark;
+  --mkt-up: #4ade80;
+  --mkt-down: #fb7185;
+  --mkt-flat: #a1a1aa;
+  --mkt-index: #fbbf24;
+  --mkt-fx: #22d3ee;
+  --mkt-commodity: #c4b5fd;
+  --surface-veil: rgba(10, 10, 12, 0.72);
+}
+
+.font-board {
+  font-family: var(--font-board), ui-sans-serif, system-ui;
+}
+
+.font-mkt-mono {
+  font-family: var(--font-mkt-mono), ui-monospace, monospace;
 }
 
 @keyframes scroll-markets {
@@ -34,6 +56,19 @@ body {
 
 .animate-scroll-news {
   animation: scroll-news 120s linear infinite;
+}
+
+@keyframes scroll-crypto {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-crypto {
+  animation: scroll-crypto 55s linear infinite;
 }
 
 @keyframes live-flip {

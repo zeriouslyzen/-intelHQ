@@ -27,22 +27,22 @@ export default async function MarketsPage() {
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <header className="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3">
+      <header className="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3 dark:border-zinc-800">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-zinc-500">
             Markets
           </p>
-          <h1 className="mt-1 text-base font-semibold text-neutral-900">
+          <h1 className="mt-1 text-base font-semibold text-neutral-900 dark:text-zinc-50">
             Instruments and watchlists
           </h1>
         </div>
-        <div className="hidden text-[11px] text-neutral-500 sm:block">
+        <div className="hidden text-[11px] text-neutral-500 dark:text-zinc-400 sm:block">
           Indices, FX, gold, silver, oil, chips, water.
         </div>
       </header>
       <div className="grid flex-1 gap-3 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)]">
-        <section className="flex min-h-0 flex-col rounded-xl border border-neutral-200 bg-white p-4">
-          <div className="flex items-center justify-between gap-3 text-xs text-neutral-500">
+        <section className="flex min-h-0 flex-col rounded-xl border border-neutral-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950/60">
+          <div className="flex items-center justify-between gap-3 text-xs text-neutral-500 dark:text-zinc-500">
             <div>Live snapshot</div>
             <div className="flex gap-2 text-[11px]">
               <span>Indices</span>
@@ -50,9 +50,9 @@ export default async function MarketsPage() {
               <span>Commodities</span>
             </div>
           </div>
-          <div className="mt-3 flex-1 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 text-xs text-neutral-800">
+          <div className="mt-3 flex-1 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 text-xs text-neutral-800 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-300">
             <table className="w-full border-separate border-spacing-y-0.5">
-              <thead className="bg-white text-[10px] uppercase tracking-[0.16em] text-neutral-500">
+              <thead className="bg-white text-[10px] uppercase tracking-[0.16em] text-neutral-500 dark:bg-zinc-950 dark:text-zinc-500">
                 <tr>
                   <th className="px-3 py-2 text-left">Symbol</th>
                   <th className="px-3 py-2 text-left">Name</th>
@@ -62,11 +62,11 @@ export default async function MarketsPage() {
               </thead>
               <tbody>
                 {rows.map((q) => (
-                  <tr key={`${q.symbol}-${q.type}`} className="bg-neutral-50">
-                    <td className="px-3 py-1.5 font-mono text-[11px] text-neutral-900">
+                  <tr key={`${q.symbol}-${q.type}`} className="bg-neutral-50 dark:bg-zinc-900/25">
+                    <td className="px-3 py-1.5 font-mono text-[11px] text-neutral-900 dark:text-zinc-200">
                       {q.symbol}
                     </td>
-                    <td className="px-3 py-1.5 text-[11px] text-neutral-700">
+                    <td className="px-3 py-1.5 text-[11px] text-neutral-700 dark:text-zinc-400">
                       {q.name}
                     </td>
                     <td className="px-3 py-1.5 text-right font-mono">
@@ -77,8 +77,8 @@ export default async function MarketsPage() {
                         <span
                           className={
                             q.changePercent >= 0
-                              ? "text-emerald-600"
-                              : "text-red-600"
+                              ? "text-emerald-600 dark:text-emerald-400"
+                              : "text-red-600 dark:text-rose-400"
                           }
                         >
                           {q.changePercent.toFixed(2)}%

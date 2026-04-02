@@ -31,13 +31,24 @@ export default function TodayVideoModule({
       </div>
       <div className="relative aspect-video w-full bg-black">
         {hasUrl ? (
-          <iframe
-            src={url!}
-            title="Headline video"
-            className="absolute inset-0 h-full w-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          <>
+            <iframe
+              src={url!}
+              title="Headline video"
+              className="absolute inset-0 h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+            <a
+              href={url!}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-1 text-[10px] font-medium text-amber-400 hover:bg-black/80 hover:text-amber-300"
+              title="Open in new window to watch while using the app"
+            >
+              Pop out
+            </a>
+          </>
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-neutral-500">
             <span className="text-sm">No video URL configured</span>

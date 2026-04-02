@@ -115,7 +115,7 @@ export default function LanguageSwitcher() {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-8 w-8 items-center justify-center rounded border border-neutral-200 bg-white shadow-sm hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-amber-400"
+        className="flex h-8 w-8 items-center justify-center rounded border border-neutral-200 bg-white shadow-sm hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
         aria-label={t("a11y.changeLanguage")}
         aria-haspopup="menu"
         aria-expanded={open}
@@ -128,7 +128,7 @@ export default function LanguageSwitcher() {
         <div
           ref={menuRef}
           role="menu"
-          className="absolute right-0 top-full z-50 mt-1 min-w-[140px] rounded-lg border border-neutral-200 bg-white py-1 shadow-lg"
+          className="absolute right-0 top-full z-50 mt-1 min-w-[140px] rounded-lg border border-neutral-200 bg-white py-1 shadow-lg dark:border-zinc-700 dark:bg-zinc-950"
           aria-orientation="vertical"
         >
           {LOCALES.map((loc) => {
@@ -142,7 +142,7 @@ export default function LanguageSwitcher() {
                   setLocale(loc);
                   setOpen(false);
                 }}
-                className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-neutral-800 hover:bg-amber-50 focus:bg-amber-50 focus:outline-none"
+                className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-neutral-800 hover:bg-amber-50 focus:bg-amber-50 focus:outline-none dark:text-zinc-200 dark:hover:bg-zinc-800 dark:focus:bg-zinc-800"
               >
                 <span className="block h-4 w-5 shrink-0 overflow-hidden rounded-sm">
                   <Flag className="h-full w-full object-cover" />

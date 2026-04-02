@@ -9,8 +9,6 @@ const staticPaths = [
   "/events",
   "/wartime",
   "/alerts",
-  "/chat",
-  "/notes",
   "/settings/feeds",
 ];
 

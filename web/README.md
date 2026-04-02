@@ -7,7 +7,7 @@ Next.js 16 app for the IntelHQ / World Signals dashboard. See the [root README](
 - **Next.js 16** (App Router), **React 19**, **TypeScript**
 - **Tailwind CSS 4**
 - **Leaflet** + **react-leaflet** for the world map
-- **Prisma** + **SQLite** (notes, layout config)
+- **Prisma** + **PostgreSQL** (auth, chat, notes, layout config, and domain models — see `prisma/schema.prisma`)
 - **fast-xml-parser** for RSS (news, conflict, alerts)
 
 ## Scripts
@@ -23,16 +23,21 @@ Next.js 16 app for the IntelHQ / World Signals dashboard. See the [root README](
 
 ## Environment
 
-No required env vars for local run. Optional:
+- **`DATABASE_URL`** — Required for Prisma (PostgreSQL). Apply migrations: `npx prisma migrate dev`.
 
-- `DATABASE_URL` — Prisma; defaults to `file:./dev.db` relative to project root. Override for production or a different path.
+**Auth (NextAuth.js)** — Required for sign-in, sessions, and chat persistence:
+
+- `NEXTAUTH_URL` — e.g. `http://localhost:3000` in development
+- `NEXTAUTH_SECRET` — strong random string for session signing
+
+Without these, public/market pages may still run, but `/signin`, `/signup`, and chat routes will not function correctly.
 
 ## Data flow
 
 Data is fetched in **lib** modules and either:
 
 - Used **server-side** by pages (e.g. map page calls `fetchIndexQuotes()`, `fetchGlobalNews()`, etc.) and passed as props to client components, or
-- Exposed via **API routes** under `app/api/live/*` and consumed by the client (e.g. NavTickers polls these every 30s).
+- Exposed via **API routes** under `app/api/live/*` and consumed by the client (e.g. NavTickers polls on an interval when **live metrics** are on in the header).
 
 Single source of truth for which fetcher feeds which route and page: **[DATA_FLOW.md](./DATA_FLOW.md)**.
 
@@ -41,10 +46,13 @@ Single source of truth for which fetcher feeds which route and page: **[DATA_FLO
 | Path | Purpose |
 |------|--------|
 | `src/app/` | Routes and API handlers |
-| `src/app/api/live/` | Live data endpoints (indices, fx, commodities, news, conflict, alerts, radio) |
+| `src/app/api/live/` | Live data (indices, fx, commodities, crypto, polymarket, news, conflict, alerts, radio, …) |
+| `src/app/api/auth/` | NextAuth |
+| `src/app/api/chat/` | Authenticated chat APIs |
+| `src/contexts/` | `LivePollingContext`, `LocaleContext`, theme |
 | `src/components/` | React components (NavTickers, WorldMap, RegionDashboard, EventsLogOsint, etc.) |
 | `src/lib/` | Data fetchers and domain logic (markets, news, conflict, alerts, radio, regions) |
-| `prisma/schema.prisma` | DB schema (Note, LayoutConfig, and legacy models) |
+| `prisma/schema.prisma` | PostgreSQL schema (User, Session, chat, Note, LayoutConfig, …) |
 
 ## Deploy
 
@@ -55,4 +63,4 @@ npm run build
 npm run start
 ```
 
-For Vercel or similar, point the project root to `web` (or the repo root if the app is deployed from `web`). Ensure `DATABASE_URL` is set if using a remote DB; for SQLite, the file path must be writable in the deployment environment.
+For Vercel or similar, point the project root to `web`. Set **`DATABASE_URL`** (PostgreSQL), **`NEXTAUTH_URL`**, and **`NEXTAUTH_SECRET`**. Run migrations against the production database as part of deploy or CI.

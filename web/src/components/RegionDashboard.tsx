@@ -30,11 +30,11 @@ export default function RegionDashboard({
     return (
       <div
         className={
-          "rounded-xl border border-neutral-200 bg-white p-4 text-xs text-neutral-500 " +
+          "rounded-xl border border-neutral-200 bg-white p-4 text-xs text-neutral-500 dark:border-zinc-800/80 dark:bg-zinc-950/40 dark:text-zinc-500 " +
           className
         }
       >
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+        <div className="font-board text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 dark:text-zinc-500">
           Region dashboard
         </div>
         <p className="mt-1">Click a map marker to see FX, commodities, and events for that region.</p>
@@ -50,28 +50,30 @@ export default function RegionDashboard({
   return (
     <div
       className={
-        "flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-4 " +
+        "flex flex-col gap-3 rounded-xl border border-neutral-200 bg-white p-4 dark:border-zinc-800/80 dark:bg-zinc-950/40 " +
         className
       }
     >
-      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+      <div className="font-board text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 dark:text-zinc-500">
         {region?.name ?? regionCode}
       </div>
       <div>
-        <div className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-400">
+        <div className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-600">
           FX
         </div>
         <div className="space-y-1.5">
           {regionFx.length === 0 ? (
-            <p className="text-[11px] text-neutral-400">No FX data for this region.</p>
+            <p className="text-[11px] text-neutral-400 dark:text-zinc-600">No FX data for this region.</p>
           ) : (
             regionFx.map((q) => (
               <div
                 key={q.symbol}
-                className="flex justify-between rounded border border-neutral-100 bg-neutral-50 px-2 py-1.5"
+                className="flex justify-between rounded border border-neutral-100 bg-neutral-50 px-2 py-1.5 dark:border-zinc-800/60 dark:bg-zinc-900/40"
               >
-                <span className="font-medium text-neutral-800">{q.symbol}</span>
-                <span className="font-mono text-[11px] text-neutral-700">
+                <span className="font-board text-[11px] font-semibold tracking-wide text-cyan-700 dark:text-[var(--mkt-fx)]">
+                  {q.symbol}
+                </span>
+                <span className="font-mkt-mono text-[11px] text-neutral-700 dark:text-zinc-300">
                   <LiveNumber value={q.price} decimals={4} />
                   {q.changePercent !== 0 && (
                     <>
@@ -81,7 +83,7 @@ export default function RegionDashboard({
                         decimals={2}
                         suffix="%"
                         prefix={q.changePercent >= 0 ? "+" : ""}
-                        className={q.changePercent >= 0 ? "text-emerald-600" : "text-red-600"}
+                        className={q.changePercent >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-rose-400"}
                       />
                     </>
                   )}
@@ -92,20 +94,20 @@ export default function RegionDashboard({
         </div>
       </div>
       <div>
-        <div className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-400">
+        <div className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-600">
           Commodities
         </div>
         <div className="space-y-1.5">
           {regionCommodities.length === 0 ? (
-            <p className="text-[11px] text-neutral-400">No commodity data for this region.</p>
+            <p className="text-[11px] text-neutral-400 dark:text-zinc-600">No commodity data for this region.</p>
           ) : (
             regionCommodities.map((q) => (
               <div
                 key={q.symbol}
-                className="flex justify-between rounded border border-neutral-100 bg-neutral-50 px-2 py-1.5"
+                className="flex justify-between rounded border border-neutral-100 bg-neutral-50 px-2 py-1.5 dark:border-zinc-800/60 dark:bg-zinc-900/40"
               >
-                <span className="font-medium text-neutral-800">{q.name}</span>
-                <span className="font-mono text-[11px]">
+                <span className="font-medium text-violet-800 dark:text-[var(--mkt-commodity)]">{q.name}</span>
+                <span className="font-mkt-mono text-[11px]">
                   <LiveNumber value={q.price} decimals={2} />
                   {" "}
                   <LiveNumber
@@ -113,7 +115,7 @@ export default function RegionDashboard({
                     decimals={2}
                     suffix="%"
                     prefix={q.changePercent >= 0 ? "+" : ""}
-                    className={q.changePercent >= 0 ? "text-emerald-600" : "text-red-600"}
+                    className={q.changePercent >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-rose-400"}
                   />
                 </span>
               </div>
@@ -123,12 +125,12 @@ export default function RegionDashboard({
       </div>
       {news.length > 0 && (
         <div>
-          <div className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-400">
+          <div className="mb-1.5 text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-zinc-600">
             Events in this region
           </div>
           <div className="space-y-1.5">
             {regionNews.length === 0 ? (
-              <p className="text-[11px] text-neutral-400">No recent events for this region.</p>
+              <p className="text-[11px] text-neutral-400 dark:text-zinc-600">No recent events for this region.</p>
             ) : (
               regionNews.map((item, i) => (
                 <a
@@ -136,18 +138,18 @@ export default function RegionDashboard({
                   href={item.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="block rounded border border-neutral-100 bg-neutral-50 px-2 py-1.5 text-[11px]"
+                  className="block rounded border border-neutral-100 bg-neutral-50 px-2 py-1.5 text-[11px] dark:border-zinc-800/60 dark:bg-zinc-900/40"
                 >
-                  <span className="font-medium text-neutral-800 line-clamp-2">
+                  <span className="font-medium text-neutral-800 line-clamp-2 dark:text-zinc-200">
                     {item.title}
                   </span>
                   <span
                     className={
                       item.perspective === "left"
-                        ? "text-sky-600"
+                        ? "text-sky-600 dark:text-sky-400"
                         : item.perspective === "right"
-                          ? "text-amber-600"
-                          : "text-neutral-500"
+                          ? "text-amber-600 dark:text-amber-400"
+                          : "text-neutral-500 dark:text-zinc-500"
                     }
                   >
                     {item.source}

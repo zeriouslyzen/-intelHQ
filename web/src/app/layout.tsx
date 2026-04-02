@@ -1,6 +1,23 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Mono, Orbitron } from "next/font/google";
 import LayoutClient from "@/components/LayoutClient";
+import SessionProvider from "@/components/SessionProvider";
+import ThemeProvider from "@/components/ThemeProvider";
 import "./globals.css";
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  variable: "--font-board",
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mkt-mono",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
 
 const baseUrl = "https://researchdefence.com";
 
@@ -36,9 +53,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-neutral-50 text-neutral-900 antialiased">
-        <LayoutClient>{children}</LayoutClient>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${orbitron.variable} ${ibmPlexMono.variable} min-h-screen bg-neutral-50 text-neutral-900 antialiased dark:bg-[#030304] dark:text-zinc-100`}
+      >
+        <ThemeProvider>
+          <SessionProvider>
+            <LayoutClient>{children}</LayoutClient>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

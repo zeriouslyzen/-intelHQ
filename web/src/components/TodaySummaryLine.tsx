@@ -47,8 +47,8 @@ export default function TodaySummaryLine({
       : `${t("today.summaryPrefix")} ${t("today.noUpdatesYet")}`;
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm">
-      <p className="text-xs text-neutral-700">{sentence}</p>
+    <div className="rounded-lg border border-neutral-200 bg-white px-3 py-2 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/50 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <p className="font-mkt-mono text-xs text-neutral-700 dark:text-zinc-400">{sentence}</p>
     </div>
   );
 }

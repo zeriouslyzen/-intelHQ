@@ -36,7 +36,7 @@ export default function LiveStreamFlipper({
     >
       <div className="flex flex-col border-b border-neutral-700 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-center justify-between gap-2 border-b border-neutral-700 px-3 py-2 sm:border-b-0 sm:border-b-transparent">
-          <span className="truncate text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+          <span className="font-board truncate text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-400">
             Live · flip channel
           </span>
           {/* Mobile: dropdown */}
@@ -89,8 +89,19 @@ export default function LiveStreamFlipper({
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         />
-        <div className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-1 text-[10px] font-medium text-neutral-300">
-          {current.name}
+        <div className="absolute bottom-2 left-2 flex items-center gap-2">
+          <span className="rounded bg-black/70 px-2 py-1 text-[10px] font-medium text-neutral-300">
+            {current.name}
+          </span>
+          <a
+            href={embedUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded bg-black/70 px-2 py-1 text-[10px] font-medium text-amber-400 hover:bg-black/80 hover:text-amber-300"
+            title="Open in new window to watch while using the app"
+          >
+            Pop out
+          </a>
         </div>
       </div>
     </div>

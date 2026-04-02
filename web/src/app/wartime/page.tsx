@@ -19,16 +19,16 @@ export default async function WartimePage() {
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <header className="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3">
+      <header className="flex items-center justify-between gap-3 border-b border-neutral-200 pb-3 dark:border-zinc-800">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-zinc-500">
             Wartime
           </p>
-          <h1 className="mt-1 text-base font-semibold text-neutral-900">
+          <h1 className="mt-1 text-base font-semibold text-neutral-900 dark:text-zinc-50">
             Conflict and military updates
           </h1>
         </div>
-        <div className="hidden text-[11px] text-neutral-500 sm:block">
+        <div className="hidden text-[11px] text-neutral-500 dark:text-zinc-400 sm:block">
           Wire and official sources. Missiles, facilities, strikes, ground.
         </div>
       </header>

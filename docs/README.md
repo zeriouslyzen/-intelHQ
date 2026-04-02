@@ -14,4 +14,4 @@ Reference for architecture, domain, and UX. The running app lives in **../web**;
 
 ## Data and app behavior
 
-For where data is fetched, which API routes expose it, and which pages/components consume it, see **[web/DATA_FLOW.md](../web/DATA_FLOW.md)**. It is the single reference for data flow in the app.
+For where data is fetched, which API routes expose it, and which pages/components consume it, see **[web/DATA_FLOW.md](../web/DATA_FLOW.md)**. It is the single reference for data flow in the app. That document also covers **site-wide live vs snapshot polling** (`LivePollingContext`), **crypto** and **Polymarket** routes, and the **Predictions** panel contract (`{ markets, fetchedAt }`).

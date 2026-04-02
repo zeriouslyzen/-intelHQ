@@ -23,8 +23,8 @@ export default function LiveNumber({
   prefix = "",
   suffix = "",
   className = "",
-  upClass = "text-emerald-600",
-  downClass = "text-red-600",
+  upClass = "text-emerald-600 dark:text-emerald-400",
+  downClass = "text-red-600 dark:text-rose-400",
   showDirection = false,
 }: LiveNumberProps) {
   const [prev, setPrev] = useState(value);

@@ -24,12 +24,12 @@ export default function BreakingHeadlinesStrip({
 
   return (
     <div
-      className={`min-w-0 overflow-hidden rounded-lg border border-amber-200 bg-amber-50/80 ${className}`}
+      className={`min-w-0 overflow-hidden rounded-lg border border-amber-200/90 bg-amber-50/80 dark:border-amber-500/25 dark:bg-gradient-to-r dark:from-amber-950/40 dark:via-zinc-950/60 dark:to-amber-950/30 ${className}`}
       aria-label={t("common.breaking")}
     >
-      <div className="flex items-center gap-2 border-b border-amber-200/80 px-3 py-1.5">
+      <div className="flex items-center gap-2 border-b border-amber-200/80 px-3 py-1.5 dark:border-amber-500/20">
         <span className="inline-flex h-1.5 w-1.5 shrink-0 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
-        <span className="truncate text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-800">
+        <span className="font-board truncate text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-900 dark:text-amber-200/90">
           {t("common.breaking")}
         </span>
       </div>
@@ -41,10 +41,10 @@ export default function BreakingHeadlinesStrip({
               href={item.link}
               target="_blank"
               rel="noreferrer"
-              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-sm text-neutral-800 hover:text-amber-800 hover:underline"
+              className="font-mkt-mono flex shrink-0 items-center gap-2 whitespace-nowrap text-sm text-neutral-800 hover:text-amber-800 hover:underline dark:text-zinc-200 dark:hover:text-amber-300"
             >
               <span className="font-medium">{item.title}</span>
-              <span className="text-[11px] text-neutral-500">{item.source}</span>
+              <span className="text-[11px] text-neutral-500 dark:text-zinc-500">{item.source}</span>
             </a>
           ))}
         </div>
