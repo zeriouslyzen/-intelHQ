@@ -47,6 +47,19 @@ function parseStringArrayField(v: string | string[] | undefined): string[] {
   }
 }
 
+/** Down-rank sports/entertainment; up-rank geopolitics/macro in the same volume pool. */
+const POLY_SPORTS_RE =
+  /\b(nba|nhl|mlb|nfl|mls|wnba|stanley cup|super bowl|world series|nba finals|fifa|world cup|uefa|champions league|olympics?|ncaa|esports|ufc|bellator|mvp|lakers|celtics|hornets|blazers|hawks|heat|warriors|suns|raptors|clippers|nuggets|bucks)\b/i;
+const POLY_INTEL_RE =
+  /\b(war|wars|attack|military|missile|drone|sanction|nato|pentagon|kremlin|idf|gaza|ukraine|iran|israel|taiwan|china\b|russia|syria|yemen|oil|opec|fed\b|inflation|election|president|congress|gdp|tariff|trade war|ceasefire|invasion|troops|nuclear|un security|security council|hamas|hezbollah|taiwan strait|south china|tanker|strait)\b/i;
+
+function polymarketSortScore(volume: number, question: string): number {
+  let s = volume;
+  if (POLY_SPORTS_RE.test(question)) s *= 0.1;
+  if (POLY_INTEL_RE.test(question)) s *= 3.5;
+  return s;
+}
+
 function parsePrimary(
   outcomes: string[],
   prices: string[]
@@ -99,7 +112,11 @@ export async function fetchPolymarketTopMarkets(
               : undefined,
         };
       })
-      .sort((a, b) => b.volume - a.volume)
+      .sort(
+        (a, b) =>
+          polymarketSortScore(b.volume, b.question) -
+          polymarketSortScore(a.volume, a.question)
+      )
       .slice(0, limit);
 
     return { markets: sorted, fetchedAt };

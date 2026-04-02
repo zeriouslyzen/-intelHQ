@@ -4,9 +4,10 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { LocaleProvider, useLocale } from "@/contexts/LocaleContext";
+import { LocaleProvider } from "@/contexts/LocaleContext";
 import { LivePollingProvider } from "@/contexts/LivePollingContext";
 import BottomNavBar from "@/components/BottomNavBar";
+import KatanWordmark from "@/components/KatanWordmark";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import LiveFeedToggle from "@/components/LiveFeedToggle";
 import NavTickers from "@/components/NavTickers";
@@ -14,21 +15,16 @@ import OnboardingTutorial from "@/components/OnboardingTutorial";
 import ThemeToggle from "@/components/ThemeToggle";
 
 function HeaderWithLocale() {
-  const { t } = useLocale();
   const { data: session, status } = useSession();
   return (
     <header className="border-b border-neutral-200 bg-white/90 px-4 py-3 backdrop-blur dark:border-zinc-800/80 dark:bg-zinc-950/85">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-90">
-          <div className="h-6 w-6 rounded-sm border border-amber-400/70 bg-gradient-to-br from-amber-300 to-yellow-400 shadow-[0_0_18px_rgba(251,191,36,0.45)] dark:shadow-[0_0_22px_rgba(251,191,36,0.35)]" />
-          <div className="leading-tight">
-            <div className="font-board text-xs uppercase tracking-[0.22em] text-neutral-500 dark:text-zinc-500">
-              {t("header.globalOps")}
-            </div>
-            <div className="font-board text-sm font-semibold tracking-wide text-neutral-900 dark:text-zinc-100">
-              {t("header.worldSignals")}
-            </div>
-          </div>
+        <Link
+          href="/"
+          className="rounded-sm hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/40"
+          aria-label="/katanx"
+        >
+          <KatanWordmark />
         </Link>
         <div className="flex items-center gap-2 sm:gap-3">
           {status === "authenticated" && session?.user ? (

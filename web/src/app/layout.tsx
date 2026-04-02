@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Orbitron } from "next/font/google";
+import { IBM_Plex_Mono, Orbitron, Source_Serif_4 } from "next/font/google";
 import LayoutClient from "@/components/LayoutClient";
 import SessionProvider from "@/components/SessionProvider";
 import ThemeProvider from "@/components/ThemeProvider";
@@ -19,24 +19,31 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const sourceSerif4 = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-editorial",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 const baseUrl = "https://researchdefence.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: "World Signals",
+  title: "/katanx",
   description:
     "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
   openGraph: {
-    title: "World Signals",
+    title: "/katanx",
     description:
       "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
     url: baseUrl,
-    siteName: "World Signals",
+    siteName: "/katanx",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "World Signals",
+    title: "/katanx",
     description:
       "Mobile-first tactical dashboard for global markets, FX, macro news, maps, and discussion.",
   },
@@ -55,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${orbitron.variable} ${ibmPlexMono.variable} min-h-screen bg-neutral-50 text-neutral-900 antialiased dark:bg-[#030304] dark:text-zinc-100`}
+        className={`${orbitron.variable} ${ibmPlexMono.variable} ${sourceSerif4.variable} min-h-screen bg-neutral-50 text-neutral-900 antialiased dark:bg-[#030304] dark:text-zinc-100`}
       >
         <ThemeProvider>
           <SessionProvider>

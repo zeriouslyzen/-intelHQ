@@ -152,7 +152,7 @@ export default function WorldMap({
 
   if (!mounted) {
     return (
-      <div className="flex h-full min-h-[400px] items-center justify-center rounded-lg border border-neutral-200 bg-sky-50 text-neutral-500">
+      <div className="flex h-full min-h-[280px] w-full items-center justify-center rounded-lg border border-neutral-200 bg-sky-50 text-neutral-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-500">
         Loading map…
       </div>
     );
@@ -164,11 +164,12 @@ export default function WorldMap({
   const showAir = layerState.air;
 
   return (
-    <div className="relative h-full min-h-[400px] w-full overflow-hidden rounded-lg border border-neutral-200">
+    <div className="relative z-0 h-full min-h-[280px] w-full overflow-hidden rounded-lg border border-neutral-200 dark:border-zinc-700/80">
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
-        className="h-full w-full z-0"
+        style={{ height: "100%", width: "100%", minHeight: "280px" }}
+        className="z-0"
         scrollWheelZoom
       >
         <TileLayer

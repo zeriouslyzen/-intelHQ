@@ -2,12 +2,11 @@
 
 import { useLocale } from "@/contexts/LocaleContext";
 import BreakingHeadlinesStripLive from "@/components/BreakingHeadlinesStripLive";
-import EventsLogOsint from "@/components/EventsLogOsint";
-import PredictionBriefPanel from "@/components/PredictionBriefPanel";
 import LiveStreamFlipper from "@/components/LiveStreamFlipper";
 import RegionDashboard from "@/components/RegionDashboard";
+import TodayEditorialBrief from "@/components/TodayEditorialBrief";
+import TodayIntelSider from "@/components/TodayIntelSider";
 import TodayMapEmbed from "@/components/TodayMapEmbed";
-import TodaySummaryLine from "@/components/TodaySummaryLine";
 import type { Quote, CommodityQuote } from "@/lib/markets";
 import type { NewsItem } from "@/lib/news";
 import type { ConflictItem } from "@/lib/conflict";
@@ -67,18 +66,13 @@ export default function TodayPageContent({
   const mainChgOk = mainChg != null && !Number.isNaN(mainChg);
 
   return (
-    <div className="flex min-h-0 min-w-0 flex-col gap-4 lg:flex-row lg:items-start">
-      <aside className="order-2 w-full shrink-0 space-y-3 lg:sticky lg:top-4 lg:order-1 lg:w-[min(100%,20rem)] lg:self-start xl:w-80">
-        <PredictionBriefPanel />
-        <EventsLogOsint
-          items={news}
-          maxLines={32}
-          listMaxHeightClass="max-h-[min(420px,calc(100vh-22rem))] lg:max-h-[min(480px,calc(100vh-14rem))]"
-        />
-      </aside>
-
-      <div className="order-1 flex min-w-0 flex-1 flex-col gap-4 lg:order-2">
-        <TodaySummaryLine conflict={conflict} riskLabel={riskLabel} />
+    <TodayIntelSider news={news} conflict={conflict} maxOsintLines={32}>
+      <TodayEditorialBrief
+        conflict={conflict}
+        news={news}
+        riskLabel={riskLabel}
+        mainIndex={mainIndex}
+      />
         <BreakingHeadlinesStripLive
           initialItems={headlineItems}
           className="min-w-0 shrink-0"
@@ -303,7 +297,6 @@ export default function TodayPageContent({
             </tbody>
           </table>
         </section>
-      </div>
-    </div>
+    </TodayIntelSider>
   );
 }

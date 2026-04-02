@@ -32,6 +32,10 @@ body {
   font-family: var(--font-mkt-mono), ui-monospace, monospace;
 }
 
+.font-editorial {
+  font-family: var(--font-editorial), "Georgia", "Times New Roman", ui-serif, serif;
+}
+
 @keyframes scroll-markets {
   0% {
     transform: translateX(0);

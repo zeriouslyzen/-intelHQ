@@ -43,7 +43,7 @@ Client components that refresh on an interval read **`shouldPoll`** from **`Live
 
 | Page | Fetches (server) | Passes to |
 |------|------------------|-----------|
-| `/` (Today) | indices, fx (regional), commodities, news, conflict, flight states, vessel positions (with resilient fallbacks) | TodayPageContent (map embed, OSINT log, PredictionBriefPanel client-side for Poly), RegionDashboard, watchlist, activity |
+| `/` (Today) | indices, fx (regional), commodities, news, conflict, flight states, vessel positions (with resilient fallbacks) | TodayPageContent (map embed, OSINT log, PredictionBriefPanel: server `news`+`conflict` plus client Polymarket poll), RegionDashboard, watchlist, activity |
 | `/markets` | indices, fx (regional), commodities | Table, MarketsRegionPanel |
 | `/map` | indices, fx (regional), commodities, news | MapViewClientWrapper → MapViewClient → WorldMap (with news popups), RegionDashboard, EventsLogOsint |
 | `/events` | news, conflict | EventsView (Headlines + Conflict & military panels) |
@@ -54,7 +54,7 @@ Client components that refresh on an interval read **`shouldPoll`** from **`Live
 ## Components that consume data
 
 - **NavTickers**: indices, fx (snapshot), commodities, **crypto**, **polymarket** (`markets` + `fetchedAt`; per-market `updatedAt` in ribbon), news via `/api/live/*` (client, ~30s poll when `shouldPoll`, `cache: no-store`). Shows **feed as-of** and **by @Polymarket / X** beside the Polymarket row when data exists.
-- **PredictionBriefPanel** (Today sidebar): Polymarket list from `/api/live/polymarket`, same polling rules; **editorial** sections are i18n-only. Displays feed timestamp, X attribution, and per-market relative “odds updated” when `updatedAt` is set.
+- **PredictionBriefPanel** (Today sidebar): Polymarket from `/api/live/polymarket` (polling as above); **RSS-derived** block merges server `conflict` + `news` by time; **derived terms** from `getThemeKeywordsFromTitles` over Poly questions + those titles. No static playbook copy.
 - **BreakingHeadlinesStripLive**: Live conflict/headline strip; respects `shouldPoll`.
 - **RegionDashboard**: fx, commodities, optional news; used on Today (CHN, MENA), Map (selected region), Markets (MarketsRegionPanel).
 - **WorldMap**: optional news; region marker popups show event count and headlines per region; onRegionSelect for dashboard.

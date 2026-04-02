@@ -36,7 +36,8 @@ export default function TodayMapEmbed({
 
   return (
     <div className={`flex min-w-0 flex-col gap-2 ${className}`}>
-      <div className="relative min-h-[280px] w-full overflow-hidden rounded-lg border border-sky-200/80 dark:border-cyan-500/20">
+      {/* Explicit height: Leaflet needs a defined block size; % height inside min-h-only parents collapses. */}
+      <div className="relative h-[400px] w-full overflow-hidden rounded-lg border border-sky-200/80 sm:h-[420px] dark:border-cyan-500/20">
         <WorldMap
           news={news}
           conflict={conflict}

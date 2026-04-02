@@ -76,11 +76,11 @@ export function getTopRegionFromConflict(conflict: ConflictItem[]): RegionCode |
   return top;
 }
 
-export function getThemeKeywordsFromConflict(
-  conflict: ConflictItem[],
+export function getThemeKeywordsFromTitles(
+  titles: string[],
   limit = 5
 ): string[] {
-  const text = conflict.map((c) => c.title).join(" ").toLowerCase();
+  const text = titles.join(" ").toLowerCase();
   const words = text.replace(/[^\w\s]/g, " ").split(/\s+/).filter(Boolean);
   const counts = new Map<string, number>();
   for (const w of words) {
@@ -91,6 +91,16 @@ export function getThemeKeywordsFromConflict(
     .sort((a, b) => b[1] - a[1])
     .slice(0, limit)
     .map(([w]) => w);
+}
+
+export function getThemeKeywordsFromConflict(
+  conflict: ConflictItem[],
+  limit = 5
+): string[] {
+  return getThemeKeywordsFromTitles(
+    conflict.map((c) => c.title),
+    limit
+  );
 }
 
 export function getRegionName(code: RegionCode): string {

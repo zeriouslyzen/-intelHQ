@@ -29,15 +29,14 @@ type LivePollingContextValue = {
 const LivePollingContext = createContext<LivePollingContextValue | null>(null);
 
 export function LivePollingProvider({ children }: { children: ReactNode }) {
-  /** Default on: full site polls while tab visible; user can switch to snapshot (no intervals). */
-  const [pollEnabled, setPollEnabledState] = useState(true);
+  /** Default off (snapshot): faster first load; user opts in to live polling. Persisted "1" enables. */
+  const [pollEnabled, setPollEnabledState] = useState(false);
   const [tabVisible, setTabVisible] = useState(true);
   const [lastRefreshAt, setLastRefreshAt] = useState<Date | null>(null);
 
   useEffect(() => {
     try {
       const s = localStorage.getItem(STORAGE_KEY);
-      if (s === "0") setPollEnabledState(false);
       if (s === "1") setPollEnabledState(true);
     } catch {
       /* ignore */

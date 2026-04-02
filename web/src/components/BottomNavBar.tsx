@@ -12,7 +12,6 @@ const NAV_ITEMS: readonly { href: string; labelKey: string; pathMono: string }[]
   { href: "/wartime", labelKey: "nav.wartime", pathMono: "/wartime" },
   { href: "/alerts", labelKey: "nav.alerts", pathMono: "/alerts" },
   { href: "/settings/feeds", labelKey: "nav.feeds", pathMono: "/feeds" },
-  { href: "/decode-test", labelKey: "nav.decodeTest", pathMono: "/decode" },
 ] as const;
 
 function routeActive(pathname: string, href: string): boolean {
